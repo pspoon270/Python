@@ -1,0 +1,21 @@
+import requests
+from bs4 import BeautifulSoup
+
+# Send a GET request to the webpage
+URL = "https://bluelimelearning.github.io/my-fav-quotes/"
+response = requests.get(URL)
+
+# Parse the HTML content using BeautifulSoup
+soup = BeautifulSoup(response.content, "html.parser")
+
+# Find all the quote elements
+quote_elements = soup.find_all("div", class_="quote")
+
+# Extract the quotes and authors
+for quote_element in quote_elements:
+    quote = quote_element.find("p", class_="text").text.strip()
+    author = quote_element.find("p", class_="author").text.strip()
+    
+    print("Quote:", quote)
+    print("Author:", author)
+    print("------")
